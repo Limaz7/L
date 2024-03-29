@@ -25,8 +25,7 @@ $dados = mysqli_fetch_assoc($resultado)
 
         Informe um valor:<input type="number" name="num">
 
-        <p><input type="radio" name="a" value="1">Sacar</a></p>
-        <p><input type="radio" name="a" value="2">Depositar</a></p>
+        <p><input type="radio" name="a" value="2">Depositar</p>
 
         <p><input type="submit" value="Enviar">
     </form>
@@ -42,12 +41,8 @@ $a = $_GET["a"];
 
 if($a == 2){
 
-$depositar = $saldo + $dados["valor"];
-$sql = "UPDATE `saldo` SET `valor`='$depositar' WHERE 1";
+$sql = "UPDATE `saldo` SET `valor`='$saldo' WHERE 1";
 
-} else if ($a == 1){
-    $sacar = $dados["valor"] - $saldo;
-    $sql = "UPDATE saldo SET valor = '$sacar' WHERE id_saldo = 1";
 }
 }
 ?>
