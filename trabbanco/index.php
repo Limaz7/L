@@ -19,7 +19,7 @@ $dados = mysqli_fetch_assoc($resultado)
     <title>Banco</title>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="" method="get">
         
         Seu saldo é: <?php echo $dados["valor"]; ?> <br><br>
 
@@ -33,19 +33,21 @@ $dados = mysqli_fetch_assoc($resultado)
 
     <?php
 
-if($_POST){
+if($_GET){
 
 include "conexao.php";
 
-$saldo = $_POST["num"];
-$a = $_POST["a"];
+$saldo = $_GET["num"];
+$a = $_GET["a"];
 
 if($a == 2){
 
-$soma = $saldo + $dados["valor"];
-$sql = "UPDATE saldo SET valor = '$soma' WHERE id_saldo = 1";
+$depositar = $saldo + $dados["valor"];
+$sql = "UPDATE `saldo` SET `valor`='$depositar' WHERE 1";
 
-
+} else if ($a == 1){
+    $sacar = $dados["valor"] - $saldo;
+    $sql = "UPDATE saldo SET valor = '$sacar' WHERE id_saldo = 1";
 }
 }
 ?>

@@ -3,7 +3,7 @@
 $bdServidor = "localhost";
 $bdUsuario = "root";
 $bdSenha = "";
-$bdBanco = "Banco";
+$bdBanco = "banco";
 
 $connect = mysqli_connect($bdServidor, $bdUsuario, 
 $bdSenha, $bdBanco);
