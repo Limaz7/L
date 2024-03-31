@@ -6,8 +6,8 @@ include "conexao.php";
 $sql = "SELECT * FROM saldo";
 
 //Executa o select
-$resultado = mysqli_query($connect,$sql);
-$dados = mysqli_fetch_assoc($resultado)
+$resultado = mysqli_query($conecta,$sql);
+$dados = mysqli_fetch_assoc($resultado);
 
 ?>
 
@@ -19,31 +19,47 @@ $dados = mysqli_fetch_assoc($resultado)
     <title>Banco</title>
 </head>
 <body>
-    <form action="" method="get">
+    <form action="" method="post">
         
         Seu saldo é: <?php echo $dados["valor"]; ?> <br><br>
 
-        Informe um valor:<input type="number" name="num">
+        Informe um valor:<input type="number" name="num"/> <br>
 
-        <p><input type="radio" name="a" value="2">Depositar</p>
+        <p><input type="radio" name="n1" value="1">Sacar</p>
+        <p><input type="radio" name="n1" value="2">Depositar</p>
 
         <p><input type="submit" value="Enviar">
     </form>
 
     <?php
 
-if($_GET){
+if($_POST){
 
 include "conexao.php";
 
-$saldo = $_GET["num"];
-$a = $_GET["a"];
+$num = $_POST["num"];
+$depsac = $_POST["n1"];
 
-if($a == 2){
+if($depsac == 2){
 
-$sql = "UPDATE `saldo` SET `valor`='$saldo' WHERE 1";
+    $dep = $num + $dados["valor"];
+    $sql = "UPDATE `saldo` SET `valor`='$dep' WHERE id_saldo = 1";
+    mysqli_query($conecta, $sql);
+    header("location: index.php");
 
 }
+
+if ($depsac == 1) {
+    if ($num > $dados["valor"]){
+        echo "Você não tem dinheiro suficiente para sacar!";
+    } else {
+        $sacar = $dados["valor"] - $num;
+        $sql = "UPDATE saldo SET valor='$sacar' WHERE id_saldo = 1";
+        mysqli_query($conecta, $sql);
+        header("location: index.php");
+    }
+}
+
 }
 ?>
 </body>
