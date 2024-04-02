@@ -39,8 +39,8 @@ while ($dados = mysqli_fetch_assoc($resultado)) {
     echo '<td>'.$dados['mes'].'</td>';
     echo '<td>'.$dados['ano'].'</td>';
 
-    echo '<td><a href="formedit?id='.$dados['id_lista'].'">Editar</a></td>';
-    echo '<td><a href="?id='.$dados['id_lista'].'">Excluir</a></td>';
+    echo '<td><a href="formedit?id_lista='.$dados['id_lista'].'">Editar</a></td>';
+    echo '<td><a href="?id_lista='.$dados['id_lista'].'">Excluir</a></td>';
     echo '</tr>';
 }
 

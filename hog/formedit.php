@@ -21,7 +21,7 @@ $dados = mysqli_fetch_assoc($result);
     <title>Alterar</title>
 </head>
 <body>
-    <form action="cadprod.php" method="post">
+    <form action="updateprod.php" method="post">
 
         <p>ID: <input type="number" value="<?php echo $dados["id_lista"]; ?>" name="id"></p>
         <p>Descricao: <input type="text" value="<?php echo $dados["descricao"]; ?>" name="desc"></p>
