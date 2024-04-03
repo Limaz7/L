@@ -7,45 +7,29 @@
 </head>
 <body>
     
-<h1> CRUD PRODUTO</h1>
+<h1> LISTA </h1>
 
 <?php
 
-echo "<a href=\"cadastrarprod.php\">Cadastar Produtos</a><br><br>";
-
 include "conexao.php";
 
-$sql = "SELECT * FROM lista";
+$sql = "SELECT * FROM lista ORDER BY ano DESC, mes DESC";
 
 $resultado = mysqli_query($conecta, $sql);
 
-echo '<table border=1>
-<tr>
-  <th>ID</th>
-  <th>Descrição</th>
-  <th>Categoria</th>
-  <th>Quantidade</th>
-  <th>Mês</th>
-  <th>Ano</th>
-  <th colspan=2>Opção</th>
-</tr>';
+
 
 while ($dados = mysqli_fetch_assoc($resultado)) {
-    echo '<tr>';
-    echo '<td>'.$dados['id_lista'].'</td>';
-    echo '<td>'.$dados['descricao'].'</td>';
-    echo '<td>'.$dados['categoria'].'</td>';
-    echo '<td>'.$dados['quantidade'].'</td>';
-    echo '<td>'.$dados['mes'].'</td>';
-    echo '<td>'.$dados['ano'].'</td>';
+    echo '<tr><br>';
+    echo '<td>'.$dados['ano'].'</td><br>';
+    echo '<td><a href="mes?mes='.$dados['mes'].'&ano='.$dados['ano'].'">'.$dados["mes"].'</a></td> | ';
+    echo '<a href="deletelist?mes='.$dados['mes'].'&ano='.$dados['ano'].'">Excluir</a> | ';
+    echo '<a href="editlist?mes='.$dados['mes'].'&ano='.$dados['ano'].'">Editar</a><br>';
 
-    echo '<td><a href="formedit?id_lista='.$dados['id_lista'].'">Editar</a></td>';
-    echo '<td><a href="?id_lista='.$dados['id_lista'].'">Excluir</a></td>';
     echo '</tr>';
-}
 
 echo '</table>';
-
+}
 
 ?>
   
