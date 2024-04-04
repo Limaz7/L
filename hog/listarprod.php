@@ -1,11 +1,10 @@
 <?php
 
-$mes = $_GET["mes"];
-$ano = $_GET["ano"];
+$id = $_GET['id_lista'];
 
 include "conexao.php";
 
-$sql = "SELECT * FROM lista WHERE mes = '$mes' and ano = '$ano'";
+$sql = "SELECT * FROM lista WHERE id_lista = '$id'";
 
 $result = mysqli_query($conecta, $sql);
 
@@ -30,8 +29,6 @@ $result = mysqli_query($conecta, $sql);
       <th>Descrição</th>
       <th>Categoria</th>
       <th>Quantidade</th>
-      <th>Mês</th>
-      <th>Ano</th>
       <th colspan=2>Opção</th>
     </tr>';
     
@@ -41,9 +38,7 @@ $result = mysqli_query($conecta, $sql);
         echo '<td>'.$dados["descricao"].'</td>';
         echo '<td>'.$dados["categoria"].'</td>';
         echo '<td>'.$dados["quantidade"].'</td>';
-        echo '<td>'.$dados['mes'].'</td>';
-        echo '<td>'.$dados['ano'].'</td>';
-    
+
         echo '<td><a href="formedit?id_lista='.$dados['id_lista'].'">Editar</a></td>';
         echo '<td><a href="deleteprod?id_lista='.$dados['id_lista'].'">Excluir</a></td>';
         echo '</tr>';

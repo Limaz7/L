@@ -11,6 +11,8 @@
 
 <?php
 
+echo "<p><a href=\"formcadlist.php\">Cadastre uma lista</a></p>";
+
 include "conexao.php";
 
 $sql = "SELECT * FROM lista ORDER BY ano DESC, mes DESC";
@@ -22,7 +24,7 @@ $resultado = mysqli_query($conecta, $sql);
 while ($dados = mysqli_fetch_assoc($resultado)) {
     echo '<tr><br>';
     echo '<td>'.$dados['ano'].'</td><br>';
-    echo '<td><a href="mes?mes='.$dados['mes'].'&ano='.$dados['ano'].'">'.$dados["mes"].'</a></td> | ';
+    echo '<td><a href="listarprod?id_lista='.$dados['id_lista'].'">'.$dados["mes"].'</a></td> | ';
     echo '<a href="deletelist?mes='.$dados['mes'].'&ano='.$dados['ano'].'">Excluir</a> | ';
     echo '<a href="editlist?mes='.$dados['mes'].'&ano='.$dados['ano'].'">Editar</a><br>';
 
