@@ -2,12 +2,19 @@
 
 session_start();
 
-if($_POST){
-    if(isset($_SESSIO["carrinho"][] = ))
-    $_SESSION["carrinho"] [] = $_POST['prod1'];
-    $_SESSION["carrinho"] [] = $_POST['prod2'];
+if ($_POST){
+    if(isset($_POST['batata'])){
+    $batata = $_POST['batata'];
+    $carro = array("batata" => $batata);
+    $_SESSION["carrinho"][] = $carro; 
     header('location: carro.php');
+    } elseif(!isset($_SESSION["carrinho"])){
+        $_SESSION["carrinho"] = array();
+    } 
 }
+
+  
+
 
 
 
@@ -26,12 +33,26 @@ if($_POST){
 
     <h1> Coloca o bgl no carro </h1>
 
-        Thiago Krug <br><input type="submit" name="prod1" value="Enviar"> <br><br>
+       <label for="batata">Batata </label>
+       <input type="hidden" id="batata" name="batata">  <br>
+       <input type="submit" value="Enviar"> <br><br>
 
-        Toni montenegro <br><input type="submit" name="prod2" value="Enviar"> <br><br>
+       <label for="maca">Maça </label>
+       <input type="hidden" id="maca" name="maca">  <br>
+       <input type="submit" value="Enviar"> <br><br>
 
-        <a href="vercarro.php"> Vizualizar o carrinho </a>
+       <label for="laranja">Laranja </label>
+       <input type="hidden" id="laranja" name="laranja">  <br>
+       <input type="submit" value="Enviar"> <br><br>
 
+       <label for="berga">Bergamota </label>
+       <input type="hidden" id="berga" name="berga">  <br>
+       <input type="submit" value="Enviar"> <br><br>
+
+       <label for="alho">Alho </label>
+       <input type="hidden" id="alho" name="alho">  <br>
+       <input type="submit" value="Enviar"> <br><br>
+ 
 </form>
 </body>
 </html>
