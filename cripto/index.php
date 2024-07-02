@@ -1,11 +1,15 @@
 <?php
 
+session_start();
+
 require_once "conecta.php";
 
 if($_POST){
 
     $nome = $_POST['nome'];
     $senha = $_POST['senha'];
+
+    $_SESSION['nome'] = $nome; 
 
     $sql = "SELECT * FROM user WHERE nome='$nome'";
 
@@ -14,21 +18,19 @@ if($_POST){
 
     $hash = $user['senha'];
 
+    $nivel = $user['nivel'];
+
     if(password_verify($senha, $hash)){
-
-    if ($user == null) {
-        echo "Email não existe no sistema! 
-              Por favor, primeiro realize o cadastro no sistema.";
-        die();
-    }
-    if ($hash == $user['senha']) {
-        echo "Senha correta!";
-
-    }
+        if ($nivel == 1){
+            header('location: admin.php');
+        }
+    
+        if ($nivel == 0){
+            header('location: comum.php');
+        }
     } else {
         echo "Senha inválida! Tente novamente.";
     }
-
 }
 
 
