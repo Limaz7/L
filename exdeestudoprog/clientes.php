@@ -2,7 +2,9 @@
 
 session_start();
 
-if(!isset($_SESSION['user'])){
+$name = $_SESSION['nome'];
+
+if(!isset($_SESSION['nome'])){
     header('location: index.php');
 }
 
@@ -16,7 +18,7 @@ if(!isset($_SESSION['user'])){
     <title>Clientes</title>
 </head>
 <body>
-    <h1> Login efetuado com sucesso </h1>
+    <h1> Bem vindo <?php echo $name; ?> </h1>
     <H1> <a href="logout.php"> sair </a> </h1>
 </body>
 </html>
