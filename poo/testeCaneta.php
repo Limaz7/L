@@ -15,7 +15,7 @@ $c1->tampar();
 $c1->rabiscar();
 
 
-echo "<pre>";
+echo "<pre>"; 
 print_r($c1);
 echo "</pre>";
 
