@@ -9,7 +9,7 @@
 
    public function adicionarLivro(Livro $livro) {
        $this->livros[] = $livro;
-       echo "Livro '{$livro->exibirTitulo()}' adicionado à biblioteca.<br>";
+       echo "Livro '{$livro->exibirTitulo()}' foi adicionado à biblioteca.<br>";
    }
 
    public function listarLivros() {
