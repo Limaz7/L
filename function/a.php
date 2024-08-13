@@ -55,6 +55,4 @@ function temp ($temp, $grau){
     }
 }
 
-function impr ($)
-
 ?>
