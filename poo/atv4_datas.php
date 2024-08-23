@@ -6,21 +6,36 @@ class data
     private $mes;
     private $ano;
 
-    public function __construct($mes, $dia, $ano)
+    public function __construct($dia, $mes, $ano)
     {
-        $this->dia = $dia;
-        $this->mes = $mes;
-        $this->ano = $ano;
+        if ($dia > 31 or $dia < 1 or $mes > 12 or $mes < 1) {
+            echo "Esse dia e mes não existem <br>";
+            die();
+        } else {
+            $this->dia = $dia;
+            $this->mes = $mes;
+            $this->ano = $ano;
+        }
     }
 
     public function setDia($dia)
     {
-        return $this->dia = $dia;
+        if ($dia > 31 or $dia < 1) {
+            echo "Esse dia não existe!";
+            die();
+        } else {
+            return $this->dia = $dia;
+        }
     }
 
     public function setMes($mes)
     {
-        return $this->mes = $mes;
+        if ($mes > 12 or $mes < 1) {
+            echo "Esse mês não existe!";
+            die();
+        } else {
+            return $this->mes = $mes;
+        }
     }
 
     public function setAno($ano)
@@ -48,5 +63,28 @@ class data
         return $this->getDia() . "/" . $this->getMes() . "/" . $this->getAno();
     }
 
-    public function avancarData() {}
+    public function avancarData()
+    {
+        $avancar = $this->getDia();
+        $avancar++;
+
+        if ($avancar > 31) {
+            $mes = $this->getMes();
+            $mes++;
+
+            if ($mes > 12) {
+                $mes = 1;
+                $this->setMes($mes);
+                $this->setDia(1);
+                $ano = $this->getAno();
+                $ano++;
+                $this->setAno($ano);
+            }
+
+            echo $this->exibirData();
+            die();
+        } else {
+            $this->setDia($avancar);
+        }
+    }
 }

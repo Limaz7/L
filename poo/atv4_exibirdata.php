@@ -1,14 +1,22 @@
 <?php
 
-include ("atv4_datas.php");
+include("atv4_datas.php");
 
-$d1 = new data;
+$d1 = new data(31, 8, 2024);
 
+echo "<pre>";
+print_r($d1);
+echo "</pre>";
+echo "<br>";
 
-$d1->setDia(04);
-$d1->setMes(04);
-$d1->setAno(2024);
+echo "Data:<br>";
+echo $d1->exibirData() . "<br>";
 
-$sim = 1;
+echo "<br>Data atualizada:<br>";
+$d1->setDia(31);
+$d1->setMes(12);
+echo $d1->exibirData() . "<br>";
 
-echo "hello world";
+echo "<br>Dia posterior:<br>";
+$d1->avancarData();
+echo $d1->exibirData();
