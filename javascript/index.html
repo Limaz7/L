@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Formulario</title>
 </head>
+
 <body>
-    <script>
-        console.log("Olá World!");
-        console.log("Olá World!");  
-    </script>
+    <form onsubmit="return salvarUsuario(event)">
+        <label>ID: <input type="number" name="id_usuario"></label><br>
+        <label>Nome: <input type="text" name="nome"></label><br>
+        <label>Email: <input type="email" name="email"></label><br>
+        <label>Senha: <input type="password" name="senha"></label><br>
+        <input type="submit" value="Salvar Usuario">
+    </form>
 </body>
+<script src="script.js"></script>
+
 </html>
