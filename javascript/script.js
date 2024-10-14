@@ -1,24 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
     listarTodos();
-})
+});
 
 function listarTodos() {
     fetch("listar.php",
-    {
+        {
             method: "GET",
-            header: {'Content-Type': "application/json; charset=UTF-8"}
+            headers: { 'Content-Type': "application/json; charset=UTF-8" }
         }
-    ).then(Response => Response.json())
-    .then(usuarios => inserirUsuario(usuarios))
-    .catch(error => console.log(error));
+    )
+        .then(response => response.json())
+        .then(usuarios => inserirUsuarios(usuarios))
+        .catch(error => console.log(error));
 }
 
-function inserirUsuario(usuarios){
-        for (const usuario of usuarios){
-            inserirUsuario(usuario);
-        }
+function inserirUsuarios(usuarios) {
+    for (const usuario of usuarios) {
+        inserirUsuario(usuario);
+    }
 }
-
 
 function inserirUsuario(usuario) {
     let tbody = document.getElementById('usuarios');
@@ -31,38 +31,95 @@ function inserirUsuario(usuario) {
     tdEmail.innerHTML = usuario.email;
     let tdAlterar = document.createElement('td');
     let btnAlterar = document.createElement('button');
-    tdAlterar.innerHTML = "Alterar";
-    btnAlterar.addEventListener("click", alterar, false);
-    btnAlterar.paramId = usuario.id; verlei
+    btnAlterar.innerHTML = "Alterar";
+    btnAlterar.addEventListener("click", buscaUsuario, false);
+    btnAlterar.id_usuario = usuario.id_usuario;
     tdAlterar.appendChild(btnAlterar);
     let tdExcluir = document.createElement('td');
     let btnExcluir = document.createElement('button');
-    tdExcluir.innerHTML = "Excluir";
+    btnExcluir.addEventListener("click", excluir, false);
+    btnExcluir.id_usuario = usuario.id_usuario;
+    btnExcluir.innerHTML = "Excluir";
     tdExcluir.appendChild(btnExcluir);
     tr.appendChild(tdId);
     tr.appendChild(tdNome);
     tr.appendChild(tdEmail);
+    tr.appendChild(tdAlterar);
+    tr.appendChild(tdExcluir);
     tbody.appendChild(tr);
 }
 
+function excluir(evt) {
+    let id_usuario = evt.currentTarget.id_usuario;
+    let excluir = confirm("Você tem certeza que deseja excluir?");
+    if (excluir == true) {
+        fetch('excluir.php?id_usuario=' + id_usuario,
+            {
+                method: "GET",
+                headers: { 'Content-Type': "application/json; charset=UTF-8" }
+            }
+        )
+            .then(response => response.json())
+            .then(usuario => preencheForm(usuario))
+            .catch(error => console.log(error));
+    }
+}
+
+
+function alterarUsuario(usuario) {
+    let tbody = document.getElementById('usuarios');
+    for (const tr of tbody.children) {
+        if (tr.children[0].innerHTML == pessoa.id_usuario) {
+            tr.children[1].innerHTML = pessoa.nome;
+            tr.children[2].innerHTML = pessoa.email;
+        }
+    }
+}
+
+function buscaUsuario(evt) {
+    let id_usuario = evt.currentTarget.id_usuario;
+    //console.log(id_usuario);
+    fetch('buscaUsuario.php?id_usuario=' + id_usuario,
+        {
+            method: "GET",
+            headers: { 'Content-Type': "application/json; charset=UTF-8" }
+        }
+    )
+        .then(response => response.json())
+        .then(usuario => preencheForm(usuario))
+        .catch(error => console.log(error));
+}
+
+function preencheForm(usuario) {
+    let inputIDUsuario = document.getElementsByName("id_usuario")[0];
+    inputIDUsuario.value = usuario.id_usuario;
+    let inputNome = document.getElementsByName("nome")[0];
+    inputNome.value = usuario.nome
+    let inputEmail = document.getElementsByName("email")[0];
+    inputEmail.value = usuario.email;
+}
 
 function salvarUsuario(event) {
-    //Parar o comportamento padrão do form
+    // parar o comportamento padrão do form
     event.preventDefault();
-    // Obtem o input id_usuario
+    // obtém o input id_usuario
     let inputIDUsuario = document.getElementsByName("id_usuario")[0];
-    // Pega o valor do input id_usuario
+    // pega o valor do input id_usuario
     let id_usuario = inputIDUsuario.value;
 
-    let inputnome = document.getElementsByName("nome")[0];
-    let nome = inputnome.value;
+    let inputNome = document.getElementsByName("nome")[0];
+    let nome = inputNome.value;
+    let inputEmail = document.getElementsByName("email")[0];
+    let email = inputEmail.value;
+    let inputSenha = document.getElementsByName("senha")[0];
+    let senha = inputSenha.value;
 
-    let inputemail = document.getElementsByName("email")[0];
-    let email = inputemail.value;
+    cadastrar(id_usuario, nome, email, senha);
 
-    let inputsenha = document.getElementsByName("senha")[0];
-    let senha = inputsenha.value;
+    document.getElementsByTagName('form')[0].reset();
+}
 
+function cadastrar(id_usuario, nome, email, senha) {
     fetch('inserir.php',
         {
             method: 'POST',
@@ -75,7 +132,25 @@ function salvarUsuario(event) {
             headers: { 'Content-Type': "application/json; charset=UTF-8" }
         }
     )
-        .then(Response => Response.JSON())
+        .then(response => response.json())
         .then(usuario => inserirUsuario(usuario))
-        .catch(error => console.log(error));    
-}   
+        .catch(error => console.log(error));
+}
+
+function alterar(id_usuario, nome, email, senha) {
+    fetch('alterar.php',
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                id_usuario: id_usuario,
+                nome: nome,
+                email: email,
+                senha: senha
+            }),
+            headers: { 'Content-Type': "application/json; charset=UTF-8" }
+        }
+    )
+        .then(response => response.json())
+        .then(usuario => alterarUsuario(usuario))
+        .catch(error => console.log(error));
+}

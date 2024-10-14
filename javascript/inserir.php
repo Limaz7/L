@@ -8,14 +8,21 @@ $usuario = json_decode(file_get_contents("PHP://input"));
 
 //echo $usuario->$id_usuario;
 
-$sql = "INSERT INTO user(nome, email, senha) 
+if ($usuario->id_usuario == "") {
+        $sql = "INSERT INTO user(nome, email, senha) 
         VALUES 
         (
         '$usuario->nome',
         '$usuario->email', 
         '$usuario->senha')";
-
-$result = mysqli_query($conexao, $sql);
-
-$usuario->id_usuario = mysqli_insert_id($conexao);
+        executarSQL($conexao, $sql);
+        $usuario->id_usuario = mysqli_insert_id($conexao);
+} else {
+        $sql = "UPDATE user SET
+                nome='$usuario->nome',
+                email='$usuario->email',
+                senha='$usuario->senha'
+                WHERE id_usuario = $usuario->id_usuario";
+        executarSQL($conexao, $sql);
+}
 echo json_encode($usuario);
