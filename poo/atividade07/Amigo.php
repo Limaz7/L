@@ -6,21 +6,20 @@ class amigo extends pessoa
 
     public $dia;
 
-    public function __construct($n, $s, $i) {
-        parent::__construct($n);
-        parent::__construct($s);
-        parent::__construct($i);
-    }
-
-    function getDia(){
-        $this->dia;
-    }
-
-    function setDia($d){
+    public function __construct($n, $s, $i, $d) {
+        parent::__construct($n, $s, $i);
         $this->dia = $d;
     }
 
-    function diadeAniversario(){
+    function setDia($d){
+        return $this->dia = $d;
+    }
 
+    function getDia(){
+        return $this->dia;
+    }
+
+    function diadeAniversario(){
+        return $this->getDia();
     }
 }
